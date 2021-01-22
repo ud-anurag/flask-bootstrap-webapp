@@ -1,0 +1,25 @@
+{
+    "params":
+    {
+        "local_server" : "True",
+        "local_uri" : "mysql://root:@localhost/udayblog",
+        "prod_uri" : "mysql://root:@localhost/udayblog",
+        "fb_url" : "//facebook.com",
+        "tw_url" : "https://twitter.com",
+        "gt_url" : "https://github.com",
+        "gmail_user": "n.udayanurag@gmail.com",
+        "gmail_pwd": "Anurag@93",
+        "login_img": "login.svg",
+        "no_of_posts": 5,
+        "admin_username": "uday",
+        "admin_pwd": "uday",
+        "wrong": "Enter correct user id and password",
+        "method": "get"
+    },
+    "blog":
+    {
+        "blog_nav": "Uday Anurag",
+        "blog_heading": "Uday Blog",
+        "blog_subheading": "Hey it's my blog! enjoy"
+    }
+}

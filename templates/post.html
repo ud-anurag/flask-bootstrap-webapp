@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+  <!-- Page Header -->
+  {% set fname = 'img/' + post.img_name %}
+  <header class="masthead" style="background-image: url({{url_for('static', filename=fname)}}">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h2 class="subheading">{{post.sub_title}}</h2>
+            <span class="meta">Posted by
+              <a href= "{{params['fb_url']}}" target = "_blank">Uday</a>
+              on Jan 04, 2021</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+              <p>{{post.content}}</p>
+        </div>
+      </div>
+    </div>
+  </article>
+  {% endblock %}
