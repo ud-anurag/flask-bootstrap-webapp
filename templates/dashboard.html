@@ -17,7 +17,7 @@
     </div>
   </header>
   <hr>
-  <h3>Upload a file----><button class="btn btn-outline-danger">UPLOAD</button></h3>
+  <h3>Kindly enter new Post from here----><a href="/edits"><button class="btn btn-outline-danger">UPLOAD</button></a></h3>
   <hr>
   <table class="table table-bordered">
     <thead>
@@ -35,7 +35,7 @@
           <td>{{post.sno}}</td>
           <td>{{post.title}}</td>
           <td>{{post.date}}</td>
-          <td><button class="btn btn-primary">Edit</button></td>
+          <td><a href="/edits/"><button class="btn btn-primary">Edit</button><a></td>
           <td><button class="btn btn-danger">Delete</button></td>
       </tr>
       {% endfor %}

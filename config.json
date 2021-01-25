@@ -6,7 +6,7 @@
         "prod_uri" : "mysql://root:@localhost/udayblog",
         "fb_url" : "//facebook.com",
         "tw_url" : "https://twitter.com",
-        "gt_url" : "https://github.com",
+        "gt_url" : "https://github.com/ud-anurag",
         "gmail_user": "n.udayanurag@gmail.com",
         "gmail_pwd": "Anurag@93",
         "login_img": "login.svg",

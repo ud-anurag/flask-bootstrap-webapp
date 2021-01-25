@@ -96,4 +96,17 @@ def dashboard():
     else:
         return render_template("login.html", params=params)
 
+@app.route('/edits/<string:', methods = ['GET','POST'])
+def edits():
+    if (request.method == 'POST'):
+        title = request.form.get('title')
+        sub_title = request.form.get('subtitle')
+        content = request.form.get('content')
+        slug = request.form.get('slug')
+        img_name=request.form.get('img_name')
+        entry = Posts(title=title, sub_title=sub_title, content=content, slug=slug,img_name=img_name,date=datetime.now())
+        db.session.add(entry)
+        db.session.commit()
+    return render_template("edits.html", params=params, blog=blog)
+
 app.run(debug=True)
