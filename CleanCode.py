@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request, session
+from flask import Flask,render_template, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_mail import Mail
@@ -38,7 +38,7 @@ class Contacts(db.Model):
 class Posts(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
-    content = db.Column(db.String(120), nullable=False)
+    content = db.Column(db.String(200), nullable=False)
     slug = db.Column(db.String(25), nullable=False)
     date = db.Column(db.String(20), nullable = False)
     sub_title = db.Column(db.String(120), nullable=False)
@@ -96,17 +96,30 @@ def dashboard():
     else:
         return render_template("login.html", params=params)
 
-@app.route('/edits/<string:', methods = ['GET','POST'])
-def edits():
-    if (request.method == 'POST'):
-        title = request.form.get('title')
-        sub_title = request.form.get('subtitle')
-        content = request.form.get('content')
-        slug = request.form.get('slug')
-        img_name=request.form.get('img_name')
-        entry = Posts(title=title, sub_title=sub_title, content=content, slug=slug,img_name=img_name,date=datetime.now())
-        db.session.add(entry)
-        db.session.commit()
-    return render_template("edits.html", params=params, blog=blog)
+@app.route("/edits/<string:sno>", methods = ['GET','POST'])
+def edits(sno):
+    if('user' in session and session['user'] == params['admin_username']):
+        if (request.method == 'POST'):
+            title = request.form.get('title')
+            sub_title = request.form.get('subtitle')
+            content = request.form.get('content')
+            slug = request.form.get('slug')
+            img_name=request.form.get('img_name')
+            if (sno == '0'):
+                post = Posts(title=title, sub_title=sub_title, content=content, slug=slug,img_name=img_name,date=datetime.now())
+                db.session.add(post)
+                db.session.commit()
+            else:
+                post = Posts.query.filter_by(sno=sno).first()
+                post.title = title
+                post.sub_title = sub_title
+                post.content = content
+                post.slug = slug
+                post.img_name = img_name
+                post.date=datetime.now()
+                db.session.commit()
+                return redirect("/edits/"+sno)
+    post = Posts.query.filter_by(sno=sno).first()
+    return render_template("edits.html", params=params, post=post, blog=blog)
 
 app.run(debug=True)

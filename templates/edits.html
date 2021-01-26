@@ -26,39 +26,39 @@
         <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
         <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
         <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-        <form name="sentMessage" id="contactForm" method = "POST" action = "/edits" novalidate>
+        <form name="sentMessage" id="contactForm" method = "POST" action = "/edits/{{post.sno}}" novalidate>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>title</label>
-              <input type="text" class="form-control" placeholder="Title" name = "title" id="name" required data-validation-required-message="Please enter your name.">
+              <input type="text" class="form-control" placeholder="Title" name = "title" id="name" value="{{post.title}}">
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Sub Title</label>
-              <input type="text" class="form-control" name = "subtitle" placeholder="Sub Title" id="email" required data-validation-required-message="Please enter your email address.">
+              <input type="text" class="form-control" name = "subtitle" placeholder="Sub Title" id="subtitle" value="{{post.sub_title}}">
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label>Content</label>
-              <textarea rows="4" cols="50" class="form-control" placeholder="Content" name = "content" id="phone"></textarea>
+              <textarea row="6" cols="50" class="form-control" placeholder="Content" name = "content">{{post.content}}</textarea>
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Slug</label>
-              <input type="text" class="form-control" name = "slug" placeholder="Slug" id="message">
+              <input type="text" class="form-control" name = "slug" placeholder="Slug" id="message" value={{post.slug}}>
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Image Name</label>
-              <input type="text" class="form-control" name = "img_name" placeholder="image name" id="message" required data-validation-required-message="Image name">
+              <input type="text" class="form-control" name = "img_name" placeholder="image name" id="message" value={{post.img_name}}>
               <p class="help-block text-danger"></p>
             </div>
           </div>
