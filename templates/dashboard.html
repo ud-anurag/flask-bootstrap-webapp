@@ -19,6 +19,7 @@
   <hr>
   <h3>Kindly enter new Post from here----><a href="/edits/0"><button class="btn btn-outline-danger">UPLOAD</button></a></h3>
   <hr>
+  
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -30,12 +31,12 @@
       </tr>
     </thead>
     <tbody>
-      {% for post in posts %}
+      {% for posti in posts %}
       <tr>
-          <td>{{post.sno}}</td>
-          <td>{{post.title}}</td>
-          <td>{{post.date}}</td>
-          <td><a href="/edits/{{post.sno}}"><button class="btn btn-primary">Edit</button><a></td>
+          <td>{{posti.sno}}</td>
+          <td>{{posti.title}}</td>
+          <td>{{posti.date}}</td>
+          <td><a href="/edits/{{posti.sno}}"><button class="btn btn-primary">Edit</button><a></td>
           <td><button class="btn btn-danger">Delete</button></td>
       </tr>
       {% endfor %}
