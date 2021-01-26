@@ -47,11 +47,13 @@ class Posts(db.Model):
 @app.route('/')
 def index():
     posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
-    return render_template("index.html", params = params, blog = blog, posts=posts)
+    post=Posts.query.filter_by().first()
+    return render_template("index.html", params = params, blog = blog, posts=posts,post=post)
 
 @app.route('/about')
 def about():
-    return render_template("about.html", params = params, blog = blog)
+    post=Posts.query.filter_by().first()
+    return render_template("about.html", params = params, blog = blog,post=post)
 
 @app.route('/contact', methods = ['GET','POST'])
 def contact():
@@ -68,7 +70,8 @@ def contact():
              recipients = [params['gmail_user']],
              body = message +'\n' + phone + '\n' + str(datetime.now())
             )
-    return render_template("contact.html", params=params, blog=blog)
+    post=Posts.query.filter_by().first()
+    return render_template("contact.html", params=params, blog=blog,post=post)
 
 
 @app.route("/post/<string:post_slug>", methods = ['GET'])
@@ -82,14 +85,16 @@ def post_route(post_slug):
 def dashboard():
     if ('user' in session and session['user'] == params['admin_username']):
         posts = Posts.query.all()
-        return render_template("dashboard.html", params=params, blog=blog, posts=posts)
+        post=Posts.query.filter_by().first()
+        return render_template("dashboard.html", params=params, blog=blog, posts=posts,post=post)
     if (request.method == 'POST'):
         username = request.form.get('name')
         password = request.form.get('password')
         if (username==params['admin_username'] and password==params['admin_pwd']):
             session['user'] = username
             posts = Posts.query.all()
-            return render_template("dashboard.html", params=params, blog=blog, posts=posts)
+            post=Posts.query.filter_by().first()
+            return render_template("dashboard.html", params=params, blog=blog, posts=posts,post=post)
         else:
             return render_template("login.html", params=params)
 
@@ -120,6 +125,11 @@ def edits(sno):
                 db.session.commit()
                 return redirect("/edits/"+sno)
     post = Posts.query.filter_by(sno=sno).first()
-    return render_template("edits.html", params=params, post=post, blog=blog)
+    return render_template("edits.html",params=params,post=post,blog=blog)
+
+@app.route("/logout")
+def logout():
+    session.pop('user')
+    return redirect("/")
 
 app.run(debug=True)
