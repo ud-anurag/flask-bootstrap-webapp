@@ -33,16 +33,19 @@
             <a class="nav-link" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/post/{{post.slug}}">Posts</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/contact">Contact</a>
           </li>
+          
+          {%if session['user']%}
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard" style="color:rgb(144, 45, 32);">Dashboard</a>
+          </li>
+          {% endif %}
           <li class="nav-item">
             {% if session['user'] %}
-            <a class="nav-link" href="/logout" style="color:rgb(20, 20, 47);">Logout</a>
+            <a class="nav-link" href="/logout" style="color:rgb(123, 6, 6);">Logout</a>
             {% else %}
-            <a class="nav-link" href="/dashboard" style="color:rgb(20, 20, 47);">Admin Login</a>
+            <a class="nav-link" href="/dashboard" style="color:rgb(7, 7, 216);">Admin Login</a>
             {% endif %}
           </li>
         </ul>
