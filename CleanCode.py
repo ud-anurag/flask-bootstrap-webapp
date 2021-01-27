@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_mail import Mail
 import json
+import math
 
 with open("config.json","r") as c:
     json = json.load(c)
@@ -46,14 +47,28 @@ class Posts(db.Model):
 
 @app.route('/')
 def index():
-    posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
-    post=Posts.query.filter_by().first()
-    return render_template("index.html", params = params, blog = blog, posts=posts,post=post)
+    posts = Posts.query.filter_by().all()
+    last=math.ceil(len(posts)/int(params['no_of_posts']))
+    page=request.args.get('page')
+    if(not str(page).isnumeric()):
+        page = 1
+    page=int(page)
+    posts=posts[(page-1)*int(params['no_of_posts']):(page-1)*int(params['no_of_posts'])+int(params['no_of_posts'])]
+    if (page == 1):
+        prev = '/#'
+        next = '/?page='+str(page + 1)
+    elif (page == last):
+        prev = '/?page='+str(page - 1)
+        next = '/#'
+    else:
+        prev = '/?page='+str(page - 1)
+        next = '/?page='+str(page + 1)
+
+    return render_template("index.html", params = params, blog = blog, posts=posts,prev=prev, next=next)
 
 @app.route('/about')
 def about():
-    post=Posts.query.filter_by().first()
-    return render_template("about.html", params = params, blog = blog,post=post)
+    return render_template("about.html", params = params, blog = blog)
 
 @app.route('/contact', methods = ['GET','POST'])
 def contact():
@@ -70,8 +85,7 @@ def contact():
              recipients = [params['gmail_user']],
              body = message +'\n' + phone + '\n' + str(datetime.now())
             )
-    post=Posts.query.filter_by().first()
-    return render_template("contact.html", params=params, blog=blog,post=post)
+    return render_template("contact.html", params=params, blog=blog)
 
 
 @app.route("/post/<string:post_slug>", methods = ['GET'])
@@ -93,8 +107,7 @@ def dashboard():
         if (username==params['admin_username'] and password==params['admin_pwd']):
             session['user'] = username
             posts = Posts.query.all()
-            post=Posts.query.filter_by().first()
-            return render_template("dashboard.html", params=params, blog=blog, posts=posts,post=post)
+            return render_template("dashboard.html", params=params, blog=blog, posts=posts)
         else:
             return render_template("login.html", params=params)
 
@@ -131,5 +144,15 @@ def edits(sno):
 def logout():
     session.pop('user')
     return redirect("/")
+
+@app.route("/delete/<string:sno>", methods = ['GET','POST'])
+def delete(sno):
+    if('user' in session and session['user'] == params['admin_username']):
+        post = Posts.query.filter_by(sno=sno).first()
+        print(post)
+        db.session.delete(post)
+        db.session.commit()
+        posts = Posts.query.all()
+    return redirect("/dashboard")
 
 app.run(debug=True)

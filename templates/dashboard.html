@@ -36,8 +36,8 @@
           <td>{{posti.sno}}</td>
           <td>{{posti.title}}</td>
           <td>{{posti.date}}</td>
-          <td><a href="/edits/{{posti.sno}}"><button class="btn btn-primary">Edit</button><a></td>
-          <td><button class="btn btn-danger">Delete</button></td>
+          <td><a href="/edits/{{posti.sno}}"><button class="btn btn-primary">Edit</button></a></td>
+          <td><a href="/delete/{{posti.sno}}"><button class="btn btn-danger">Delete</button></a></td>
       </tr>
       {% endfor %}
     </tbody>
