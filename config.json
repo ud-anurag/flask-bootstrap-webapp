@@ -2,14 +2,14 @@
     "params":
     {
         "local_server" : "True",
-        "local_uri" : "mysql://root:@localhost/udayblog",
-        "prod_uri" : "mysql://root:@localhost/udayblog",
+        "local_uri" : "mysql+mysqlconnector://root:@localhost/udayblog",
+        "prod_uri" : "mysql+mysqlconnector://root:@localhost/udayblog",
         "fb_url" : "//facebook.com",
         "tw_url" : "https://twitter.com",
         "gt_url" : "https://github.com/ud-anurag",
         "gmail_user": "n.udayanurag@gmail.com",
         "gmail_pwd": "Anurag@93",
-        "login_img": "login.svg",
+        "login_img": "login.png",
         "no_of_posts": 3,
         "admin_username": "uday",
         "admin_pwd": "uday",
